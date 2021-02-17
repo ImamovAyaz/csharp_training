@@ -7,10 +7,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupCreationTestsNew
+namespace GroupContactsTests
 {
     [TestFixture]
-    public class GroupCreationTestNew
+    public class GroupContactsTest
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,31 +40,32 @@ namespace GroupCreationTestsNew
         }
 
         [Test]
-        public void GroupCreationTestsNew()
+        public void GroupContactsTests()
         {
             OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            CreateNewGroup();
-            GroupData group = new GroupData("aaa");
-            group.Header = "fff";
-            group.Footer = "ggg";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            Logout();
+            LoginAndPassword(new AccountDataNew("Admin","secret"));
+            SubmitForCreateNewGroup();
+            GroupDataNew group = new GroupDataNew("Contacts");
+            group.Header = "Group contacts";
+            group.Footer = "friends";
+            CreateGroupContacts(group);
+            GroupsPage();
         }
 
-        private void Logout()
+        private void SubmitForCreateNewGroup()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.Name("new")).Click();
+            
         }
 
-        private void SubmitGroupCreation()
+        private void GroupsPage()
         {
-            driver.FindElement(By.Name("submit")).Click();
+            driver.FindElement(By.LinkText("group page")).Click();
         }
 
-        private void FillGroupForm(GroupData group)
-        {
+        private void CreateGroupContacts(GroupDataNew group)
+        {  
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
             driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
@@ -74,20 +75,14 @@ namespace GroupCreationTestsNew
             driver.FindElement(By.Name("group_footer")).Click();
             driver.FindElement(By.Name("group_footer")).Clear();
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void CreateNewGroup()
+        private void LoginAndPassword(AccountDataNew account)
         {
-            // Create new group
-            driver.FindElement(By.Name("new")).Click();
-        }
-
-        private void Login(AccountData account)
-        {
-            driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("user")).SendKeys(account.Login);
             driver.FindElement(By.Name("pass")).Click();
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys(account.Password);
