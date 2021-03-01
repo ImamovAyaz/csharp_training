@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CreateContactsTest
+namespace GroupCreationTestsNew
 {
-    class AccountDataForContact
+    public class AccountDataForContact
     {
         private string username;
         private string password;

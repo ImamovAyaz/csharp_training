@@ -20,13 +20,17 @@ namespace GroupCreationTestsNew
         }
         public void GoToHomePage()
         {
-            driver.Navigate().GoToUrl(baseURL + "/group.php");
+            driver.Navigate().GoToUrl(baseURL);
         }
 
 
         public void GoToGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
+        }
+        public void BackHomePage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
         }
     }
 }

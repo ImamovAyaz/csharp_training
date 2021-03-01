@@ -9,8 +9,6 @@ namespace GroupCreationTestsNew
     [TestFixture]
     public class GroupCreationTestNew : TestBase
     {
-       
-
         [Test]
         public void GroupCreationTestsNew()
         {            

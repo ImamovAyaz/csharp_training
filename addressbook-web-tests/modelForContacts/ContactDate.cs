@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CreateContactsTest
+namespace GroupCreationTestsNew
 {
-    class ContactDate
+    public class ContactDate
     {
         private string firstname;
         private string middlename;
