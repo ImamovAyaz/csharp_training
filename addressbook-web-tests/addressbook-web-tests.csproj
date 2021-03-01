@@ -60,23 +60,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountData.cs" />
-    <Compile Include="AccountDataNew.cs" />
-    <Compile Include="AccountDataForContact.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="ContactDate.cs" />
-    <Compile Include="CreateContactsTest.cs" />
-    <Compile Include="Figure.cs" />
+    <Compile Include="tests\GroupModificationTests.cs" />
+    <Compile Include="model\AccountDataNew.cs" />
+    <Compile Include="modelForContacts\AccountDataForContact.cs" />
+    <Compile Include="appmanager\ApplicationManager.cs" />
+    <Compile Include="modelForContacts\ContactDate.cs" />
+    <Compile Include="testForContacts\CreateContactsTest.cs" />
     <Compile Include="GroupData.cs" />
-    <Compile Include="GroupDataNew.cs" />
-    <Compile Include="Square.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="model\GroupDataNew.cs" />
+    <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\GroupRemovealTests.cs" />
+    <Compile Include="appmanager\HelperBase.cs" />
+    <Compile Include="appmanager\LoginHelper.cs" />
+    <Compile Include="appmanager\NavigationHelper.cs" />
+    <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GroupCreationTests.cs" />
-    <Compile Include="GroupCreationTestsNew.cs" />
+    <Compile Include="tests\GroupCreationTestsNew.cs" />
     <Compile Include="GroupContactsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
