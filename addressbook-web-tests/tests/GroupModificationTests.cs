@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     [TestFixture]
     public class GroupModificationTests : TestBase // Тесты наследуются от базового тестового класса

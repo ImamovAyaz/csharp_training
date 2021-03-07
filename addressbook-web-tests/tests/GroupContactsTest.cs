@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupContactsTests
+namespace AddressBookWebTests
 {
     [TestFixture]
     public class GroupContactsTest
@@ -43,9 +43,9 @@ namespace GroupContactsTests
         public void GroupContactsTests()
         {
             OpenHomePage();
-            LoginAndPassword(new AccountDataNew("Admin","secret"));
+            LoginAndPassword(new AccountData("Admin","secret"));
             SubmitForCreateNewGroup();
-            GroupDataNew group = new GroupDataNew("Contacts");
+            GroupData group = new GroupData("Contacts");
             group.Header = "Group contacts";
             group.Footer = "friends";
             CreateGroupContacts(group);
@@ -64,7 +64,7 @@ namespace GroupContactsTests
             driver.FindElement(By.LinkText("group page")).Click();
         }
 
-        private void CreateGroupContacts(GroupDataNew group)
+        private void CreateGroupContacts(GroupData group)
         {  
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
@@ -78,11 +78,11 @@ namespace GroupContactsTests
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void LoginAndPassword(AccountDataNew account)
+        private void LoginAndPassword(AccountData account)
         {
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Login);
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
             driver.FindElement(By.Name("pass")).Click();
             driver.FindElement(By.Name("pass")).Clear();
             driver.FindElement(By.Name("pass")).SendKeys(account.Password);

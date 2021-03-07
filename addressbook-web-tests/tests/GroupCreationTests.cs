@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     [TestFixture]
     public class GroupCreationTestNew : TestBase

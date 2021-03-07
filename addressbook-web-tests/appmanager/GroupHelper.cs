@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     public class GroupHelper : HelperBase
     {
@@ -19,7 +19,6 @@ namespace GroupCreationTestsNew
         public GroupHelper Create(GroupData group) //метод для создания групп
         {
             manager.Navigator.GoToGroupsPage();
-
             CreateNewGroup();
             FillGroupForm(group);
             SubmitGroupCreation();
@@ -42,7 +41,6 @@ namespace GroupCreationTestsNew
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
-
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     public class TestBase
     {

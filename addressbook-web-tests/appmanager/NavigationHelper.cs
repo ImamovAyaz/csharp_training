@@ -7,11 +7,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     public class NavigationHelper : HelperBase
     {
-        private string baseURL;
+        private string baseURL = "http://localhost/addressbook";
 
         public NavigationHelper(ApplicationManager manager, string baseURL) 
             : base(manager)

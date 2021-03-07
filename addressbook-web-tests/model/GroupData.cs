@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroupContactsTests
+namespace AddressBookWebTests
 {
-    class GroupDataNew
+    public class GroupData
     {
         private string name;
         private string header = "";
         private string footer = "";
-
-        public GroupDataNew(string name)
+        public GroupData(string name)
         {
             this.name = name;
         }
+
         public string Name
         {
             get

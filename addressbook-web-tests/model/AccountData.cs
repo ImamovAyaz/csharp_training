@@ -4,27 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GroupContactsTests
+namespace AddressBookWebTests
 {
-    class AccountDataNew
+    public class AccountData
     {
-        private string login;
+        private string username;
         private string password;
 
-        public AccountDataNew(string login, string password)
+        public AccountData(string username, string password)
         {
-            this.login = login;
+            this.username = username;
             this.password = password;
         }
-        public string Login
+
+        public string Username
         {
             get
             {
-                return login;
+                return username;
             }
             set
             {
-                login = value;
+                username = value;
             }
         }
 

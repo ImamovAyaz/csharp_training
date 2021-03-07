@@ -7,14 +7,14 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     [TestFixture]
     public class Contact : TestBase
     {
 
         [Test]
-        public void TheContactTest()   // привести в порядок тестовую группу
+        public void TheContactTest()   
         {
             ContactDate contact = new ContactDate("Ayaz1", "Imamov");
             app.Contacts.AddNewContact(contact);

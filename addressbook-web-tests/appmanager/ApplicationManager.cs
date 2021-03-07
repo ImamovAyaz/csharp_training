@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace GroupCreationTestsNew
+namespace AddressBookWebTests
 {
     public class ApplicationManager
     {
@@ -22,9 +22,8 @@ namespace GroupCreationTestsNew
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook";
-
-            loginHelper = new LoginHelper(this);
             navigator = new NavigationHelper(this, baseURL);
+            loginHelper = new LoginHelper(this);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
@@ -78,4 +77,5 @@ namespace GroupCreationTestsNew
         }
 
     }
+
 }
