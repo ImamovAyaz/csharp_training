@@ -21,6 +21,11 @@ namespace AddressBookWebTests
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
+            if (AvailabilityOfContacts() == false)
+            {
+                ContactDate contact = new ContactDate("Ayaz1", "Imamov");
+                AddNewContact(contact);
+            }
             SelectContact(v);
             RemoveContact();
             return this;
@@ -36,6 +41,11 @@ namespace AddressBookWebTests
         public ContactHelper Modify(int v, ContactDate newData)
         {
             manager.Navigator.GoToHomePage();
+            if (AvailabilityOfContacts() == false)
+            {
+                ContactDate contact = new ContactDate("Ayaz1", "Imamov");
+                AddNewContact(contact);
+            }
             EditThisContact(v);
             FillContactForm(newData);
             UpdateContact(v);
@@ -68,12 +78,8 @@ namespace AddressBookWebTests
 
         public ContactHelper FillContactForm(ContactDate contact)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Click();
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
+            Type(By.Name("firstname"), contact.Firstname);
+            Type(By.Name("middlename"), contact.Middlename);
             return this;
         }
         public ContactHelper UpdateContact(int index)
@@ -127,6 +133,11 @@ namespace AddressBookWebTests
             {
                 acceptNextAlert = true;
             }
+        }
+
+        public bool AvailabilityOfContacts()
+        {
+            return IsElementPresent(By.Name("entry"));
         }
     }
 }

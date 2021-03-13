@@ -10,11 +10,11 @@ using OpenQA.Selenium.Support.UI;
 namespace AddressBookWebTests
 {
     [TestFixture]
-    public class Contact : TestBase
+    public class Contact : AuthTestBase
     {
 
         [Test]
-        public void TheContactTest()   
+        public void CreateContactTest()   
         {
             ContactDate contact = new ContactDate("Ayaz1", "Imamov");
             app.Contacts.AddNewContact(contact);

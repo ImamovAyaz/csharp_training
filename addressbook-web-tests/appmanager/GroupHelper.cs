@@ -29,6 +29,13 @@ namespace AddressBookWebTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage(); //переход на нужную нам страницу
+            if (AvailabilityOfGroups() == false)
+            {
+                GroupData group = new GroupData("newGroup");
+                group.Header = "111";
+                group.Footer = "222";
+                Create(group);
+            }
             SelectGroup(v);
             InitGroupModification(); 
             FillGroupForm(newData); // заполняем появившуюся форму
@@ -37,10 +44,21 @@ namespace AddressBookWebTests
             return this;
         }
 
+        public bool AvailabilityOfGroups()
+        {
+            return IsElementPresent(By.Name("selected[]"));   
+        }
 
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
+            if (AvailabilityOfGroups() == false)
+            {
+                GroupData group = new GroupData("newGroup");
+                group.Header = "111";
+                group.Footer = "222";
+                Create(group);
+            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -54,17 +72,14 @@ namespace AddressBookWebTests
         }
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
+
+
+
         public GroupHelper SubmitGroupCreation()
         {
 
