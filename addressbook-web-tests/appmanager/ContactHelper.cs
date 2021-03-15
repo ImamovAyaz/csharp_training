@@ -18,6 +18,7 @@ namespace AddressBookWebTests
         {
         }
 
+
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
@@ -30,6 +31,24 @@ namespace AddressBookWebTests
             RemoveContact();
             return this;
         }
+
+        public List<ContactDate> GetContactsList()
+        {
+            List<ContactDate> contact = new List<ContactDate>();
+            manager.Navigator.GoToHomePage();
+            IList<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+            string firstname;
+            string lastname;
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.CssSelector("td"));
+                lastname = cells[2].Text;
+                firstname = cells[1].Text;
+                contact.Add(new ContactDate(lastname, firstname));
+            }
+            return contact;
+        }
+
         public ContactHelper RemoveContact()
         {
 
@@ -58,33 +77,33 @@ namespace AddressBookWebTests
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Click();
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
+            driver.FindElement(By.Name("lastname")).Click();
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             return this;
         }
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
         public ContactHelper EditThisContact(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
         public ContactHelper FillContactForm(ContactDate contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("middlename"), contact.Middlename);
+            Type(By.Name("lastname"), contact.Lastname);
             return this;
         }
         public ContactHelper UpdateContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='update'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='update'])[" + (index + 1) + "]")).Click();
             return this;
         }
         public bool IsElementPresent(By by)

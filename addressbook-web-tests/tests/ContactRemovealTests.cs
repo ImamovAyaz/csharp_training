@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace AddressBookWebTests
@@ -13,7 +14,13 @@ namespace AddressBookWebTests
         [Test]
         public void GontactRemovealTest()
         {
-            app.Contacts.Remove(1);
+            List<ContactDate> oldContacts = app.Contacts.GetContactsList();
+            app.Contacts.Remove(0);
+            List<ContactDate> newContacts = app.Contacts.GetContactsList();
+            oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

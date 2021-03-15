@@ -17,8 +17,16 @@ namespace AddressBookWebTests
             GroupData newData = new GroupData("aaa123");
             newData.Header = null;
             newData.Footer = null;
+            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
 
-            app.Groups.Modify(1, newData);
+            app.Groups.Modify(0, newData);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            //Список объектов типа GroupData после добавления новой группы
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups); //сравнение двух списков
         }
 
     }
