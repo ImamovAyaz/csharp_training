@@ -14,6 +14,13 @@ namespace AddressBookWebTests
         [Test]
         public void GroupRemovealTest()
         {
+            if (app.Groups.AvailabilityOfGroups() == false)
+            {
+                GroupData group = new GroupData("newGroup");
+                group.Header = "111";
+                group.Footer = "222";
+                app.Groups.Create(group);
+            }
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
             app.Groups.Remove(0);
             List<GroupData> newGroups = app.Groups.GetGroupList();

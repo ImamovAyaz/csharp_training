@@ -41,13 +41,6 @@ namespace AddressBookWebTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage(); //переход на нужную нам страницу
-            if (AvailabilityOfGroups() == false)
-            {
-                GroupData group = new GroupData("newGroup");
-                group.Header = "111";
-                group.Footer = "222";
-                Create(group);
-            }
             SelectGroup(v);
             InitGroupModification(); 
             FillGroupForm(newData); // заполняем появившуюся форму
@@ -64,13 +57,6 @@ namespace AddressBookWebTests
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
-            if (AvailabilityOfGroups() == false)
-            {
-                GroupData group = new GroupData("newGroup");
-                group.Header = "111";
-                group.Footer = "222";
-                Create(group);
-            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();

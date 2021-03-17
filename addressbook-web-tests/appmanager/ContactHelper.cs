@@ -22,11 +22,6 @@ namespace AddressBookWebTests
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
-            if (AvailabilityOfContacts() == false)
-            {
-                ContactDate contact = new ContactDate("Ayaz1", "Imamov");
-                AddNewContact(contact);
-            }
             SelectContact(v);
             RemoveContact();
             return this;
@@ -51,7 +46,6 @@ namespace AddressBookWebTests
 
         public ContactHelper RemoveContact()
         {
-
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -60,11 +54,6 @@ namespace AddressBookWebTests
         public ContactHelper Modify(int v, ContactDate newData)
         {
             manager.Navigator.GoToHomePage();
-            if (AvailabilityOfContacts() == false)
-            {
-                ContactDate contact = new ContactDate("Ayaz1", "Imamov");
-                AddNewContact(contact);
-            }
             EditThisContact(v);
             FillContactForm(newData);
             UpdateContact(v);

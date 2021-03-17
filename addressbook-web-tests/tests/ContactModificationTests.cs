@@ -14,6 +14,11 @@ namespace AddressBookWebTests
         [Test]
         public void ContactModificationTest()
         {
+            if (app.Contacts.AvailabilityOfContacts() == false)
+            {
+                ContactDate contact = new ContactDate("Ayaz1", "Imamov");
+                app.Contacts.AddNewContact(contact);
+            }
             ContactDate newData = new ContactDate("Ayaz123","Imamov123");
             List<ContactDate> oldContacts = app.Contacts.GetContactsList();
             app.Contacts.Modify(0, newData);

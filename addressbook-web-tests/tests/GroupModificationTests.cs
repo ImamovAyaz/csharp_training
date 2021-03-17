@@ -14,13 +14,18 @@ namespace AddressBookWebTests
         [Test]
         public void GroupModificationTest()  // тестовый метод
         {
+            if (app.Groups.AvailabilityOfGroups() == false)
+            {
+                GroupData group = new GroupData("newGroup");
+                group.Header = "111";
+                group.Footer = "222";
+                app.Groups.Create(group);
+            }
             GroupData newData = new GroupData("aaa123");
             newData.Header = null;
             newData.Footer = null;
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
-
             app.Groups.Modify(0, newData);
-
             List<GroupData> newGroups = app.Groups.GetGroupList();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups[0].Name = newData.Name;
