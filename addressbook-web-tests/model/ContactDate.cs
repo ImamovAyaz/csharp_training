@@ -8,13 +8,11 @@ namespace AddressBookWebTests
 {
     public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
-        private string firstname;
-        private string lastname;
 
         public ContactDate(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            this.Firstname = firstname;
+            this.Lastname = lastname;
         }
         public bool Equals (ContactDate other)
         {
@@ -48,28 +46,10 @@ namespace AddressBookWebTests
             }
             return Firstname.CompareTo(other.Firstname);
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Lastname { get; set; }
+        
+        public string Id { get; set; }
     }
 }

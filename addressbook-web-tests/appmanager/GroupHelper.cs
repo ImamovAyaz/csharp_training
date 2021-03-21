@@ -26,32 +26,44 @@ namespace AddressBookWebTests
             return this;
         }
 
+        private List<GroupData> groupCash = null;
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements) // для каждого element из elements выполняем
+            if (groupCash == null)
             {
-                groups.Add(new GroupData(element.Text));
+                groupCash = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements) // для каждого element из elements выполняем
+                {
+                    groupCash.Add(new GroupData(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-            return groups;
+            return new List<GroupData>(groupCash);
         }
 
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage(); //переход на нужную нам страницу
             SelectGroup(v);
-            InitGroupModification(); 
+            InitGroupModification();
             FillGroupForm(newData); // заполняем появившуюся форму
             SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
         }
 
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
         public bool AvailabilityOfGroups()
         {
-            return IsElementPresent(By.Name("selected[]"));   
+            return IsElementPresent(By.Name("selected[]"));
         }
 
         public GroupHelper Remove(int v)
@@ -80,18 +92,19 @@ namespace AddressBookWebTests
 
         public GroupHelper SubmitGroupCreation()
         {
-
             driver.FindElement(By.Name("submit")).Click();
+            groupCash = null;
             return this;
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.XPath("(//input[@name='delete'])[2]")).Click();
+            groupCash = null;
             return this;
         }
         public GroupHelper ReturnToGroupsPage()
@@ -103,6 +116,7 @@ namespace AddressBookWebTests
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCash = null;
             return this;
         }
 

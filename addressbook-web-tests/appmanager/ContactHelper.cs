@@ -17,8 +17,6 @@ namespace AddressBookWebTests
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
-
-
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
@@ -27,26 +25,38 @@ namespace AddressBookWebTests
             return this;
         }
 
+ 
+
+        private List<ContactDate> contactCash = null;
         public List<ContactDate> GetContactsList()
         {
-            List<ContactDate> contact = new List<ContactDate>();
-            manager.Navigator.GoToHomePage();
-            IList<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
-            string firstname;
-            string lastname;
-            foreach (IWebElement element in elements)
+            if (contactCash == null)
             {
-                IList<IWebElement> cells = element.FindElements(By.CssSelector("td"));
-                lastname = cells[2].Text;
-                firstname = cells[1].Text;
-                contact.Add(new ContactDate(lastname, firstname));
+                contactCash = new List<ContactDate>();
+                manager.Navigator.GoToHomePage();
+                IList<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+                string firstname;
+                string lastname;
+                foreach (IWebElement element in elements)
+                {
+ 
+                    IList<IWebElement> cells = element.FindElements(By.CssSelector("td"));
+                    lastname = cells[2].Text;
+                    firstname = cells[1].Text;
+                    contactCash.Add(new ContactDate(lastname, firstname)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }            
             }
-            return contact;
+            List<ContactDate> contact = new List<ContactDate>();
+            return new List<ContactDate>(contactCash);
         }
 
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCash = null;
             driver.SwitchTo().Alert().Accept();
             return this;
         }
@@ -70,6 +80,7 @@ namespace AddressBookWebTests
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            contactCash = null;
             return this;
         }
 
@@ -93,6 +104,7 @@ namespace AddressBookWebTests
         public ContactHelper UpdateContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[" + (index + 1) + "]")).Click();
+            contactCash = null;
             return this;
         }
         public bool IsElementPresent(By by)
@@ -142,10 +154,13 @@ namespace AddressBookWebTests
                 acceptNextAlert = true;
             }
         }
-
         public bool AvailabilityOfContacts()
         {
             return IsElementPresent(By.Name("entry"));
+        }
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.CssSelector("tr[name=\"entry\"]")).Count;
         }
     }
 }

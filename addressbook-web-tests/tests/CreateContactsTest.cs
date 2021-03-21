@@ -22,6 +22,9 @@ namespace AddressBookWebTests
             
             app.Contacts.AddNewContact(contact);
             app.Navigator.BackHomePage();
+
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+
             List<ContactDate> newContacts = app.Contacts.GetContactsList();
             oldContacts.Add(contact);
             oldContacts.Sort();

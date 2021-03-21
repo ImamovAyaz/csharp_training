@@ -18,6 +18,9 @@ namespace AddressBookWebTests
             group.Footer = "ggg";
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
             app.Groups.Create(group);
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups.Add(group);
@@ -35,6 +38,9 @@ namespace AddressBookWebTests
             group.Footer = "";
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
             app.Groups.Create(group);
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups.Add(group);
@@ -52,6 +58,9 @@ namespace AddressBookWebTests
             group.Footer = "";
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
             app.Groups.Create(group);
+
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups.Add(group);
