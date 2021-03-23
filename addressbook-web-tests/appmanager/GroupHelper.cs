@@ -36,10 +36,24 @@ namespace AddressBookWebTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                 foreach (IWebElement element in elements) // для каждого element из elements выполняем
                 {
-                    groupCash.Add(new GroupData(element.Text)
+                    groupCash.Add(new GroupData(null)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
+                }
+                string allGroupNames = driver.FindElement(By.CssSelector("div#content form")).Text;
+                string  [] parts = allGroupNames.Split('\n');
+                int shift = groupCash.Count - parts.Length;
+                for (int i =0; i < groupCash.Count; i++)
+                {
+                    if (i < shift)
+                    {
+                        groupCash[i].Name = "";
+                    }
+                    else
+                    {
+                        groupCash[i].Name = parts[i - shift].Trim();
+                    }
                 }
             }
             return new List<GroupData>(groupCash);

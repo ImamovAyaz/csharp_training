@@ -8,13 +8,15 @@ namespace AddressBookWebTests
 {
     public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
+        private string allPhones;
+        private string allEmails;
 
         public ContactDate(string firstname, string lastname)
         {
             this.Firstname = firstname;
             this.Lastname = lastname;
         }
-        public bool Equals (ContactDate other)
+        public bool Equals(ContactDate other)
         {
             if (Object.ReferenceEquals(other, null))
             {
@@ -49,7 +51,66 @@ namespace AddressBookWebTests
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
-        
+
         public string Id { get; set; }
+
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string Email { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        public string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            else
+            {
+                return phone.Replace(" ", "").Replace("-", "").Replace("+", "").Replace("(", "").Replace(")", "") + "\r\n";
+            }
+        }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return Email + Email2 + Email3;
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
     }
+
 }
+
