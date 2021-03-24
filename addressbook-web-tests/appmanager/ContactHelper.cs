@@ -21,7 +21,8 @@ namespace AddressBookWebTests
         {
             manager.Navigator.GoToHomePage();
             SelectContact(v);
-            RemoveContact();
+            RemoveContact();  
+            
             return this;
         }
 
@@ -56,8 +57,18 @@ namespace AddressBookWebTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            
             contactCash = null;
             driver.SwitchTo().Alert().Accept();
+            manager.Navigator.GoToHomePage();
+            //try
+            //{
+            //    driver.FindElement(By.CssSelector("div.msgbox"));
+            //}
+            //catch (TimeoutException)
+            //{
+
+            //}           
             return this;
         }
 
