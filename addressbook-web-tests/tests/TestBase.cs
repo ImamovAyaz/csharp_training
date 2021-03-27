@@ -17,5 +17,17 @@ namespace AddressBookWebTests
         {
             app = ApplicationManager.GetInstance();
         }
+        public static Random rnd = new Random();
+        public static string GenerateRandomString(int max) //Генератор случайных строк, длина которых 
+                                                          //длина которых не будет превышать max
+        {          
+            int l = Convert.ToInt32(rnd.NextDouble() * max);
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < l; i++)
+            {
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223))); // коды символов в ASCII 
+            }
+            return builder.ToString();
+        }
     }
 }

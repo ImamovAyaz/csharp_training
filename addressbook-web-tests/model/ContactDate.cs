@@ -35,7 +35,7 @@ namespace AddressBookWebTests
         }
         public override string ToString()
         {
-            return "Lastname = " + Lastname + "," + "Firstname =" + Firstname;
+            return "\nLastname = " + Lastname + "," + "\nFirstname =" + Firstname + "\nAddress = " + Address;
         }
         public int CompareTo(ContactDate other)
         {

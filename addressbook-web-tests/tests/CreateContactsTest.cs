@@ -13,11 +13,23 @@ namespace AddressBookWebTests
     [TestFixture]
     public class CreateContactTests : AuthTestBase
     {
-
-        [Test]
-        public void CreateContactTest()   
+        public static IEnumerable<ContactDate> RandomContactDataProvider()
         {
-            ContactDate contact = new ContactDate("Ayaz1", "Imamov");
+            List<ContactDate> contacts = new List<ContactDate>();
+            for (int i = 0; i < 3; i++) //задаём количество тестов, которые будут сгенерированы рандомными данными
+            {
+                contacts.Add(new ContactDate(GenerateRandomString(50), GenerateRandomString(100))
+                {
+                    Address = GenerateRandomString(50)
+                }) ;
+            }
+            return contacts;
+        }
+
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void CreateContactTest(ContactDate contact)   
+        {
+         //   ContactDate contact = new ContactDate("Ayaz1", "Imamov");
             List<ContactDate> oldContacts = app.Contacts.GetContactsList();
             
             app.Contacts.AddNewContact(contact);
