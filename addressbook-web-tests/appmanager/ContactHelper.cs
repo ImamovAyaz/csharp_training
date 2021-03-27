@@ -14,19 +14,19 @@ namespace AddressBookWebTests
     public class ContactHelper : HelperBase
     {
         private bool acceptNextAlert = true;
+
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
+
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToHomePage();
             SelectContact(v);
-            RemoveContact();  
-            
+            RemoveContact();
+
             return this;
         }
-
-
 
         private List<ContactDate> contactCash = null;
         public List<ContactDate> GetContactsList()
@@ -57,7 +57,7 @@ namespace AddressBookWebTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            
+
             contactCash = null;
             driver.SwitchTo().Alert().Accept();
             manager.Navigator.GoToHomePage();
@@ -224,6 +224,81 @@ namespace AddressBookWebTests
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+        public string GetAllFieldsContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            EditThisContact(index);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).Text;
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+            string fullname = firstName + " " + middlename + " " + lastName;
+            //string[] info = { firstName, middlename, lastName, nickname, company, title, address, homePhone, mobilePhone, workPhone, fax, email, email2, email3 };
+            //for (int i = 0; i < info.Length; i++)
+            //{
+            //    if (info[i] == null)
+            //    {
+            //        info[i] = "";
+            //    } 
+            //}    
+            return fullname + "\r\n" + nickname + "\r\n" + title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" + "H: " + homePhone
+                + "\r\n" + "M: " + mobilePhone + "\r\n" + "W: " + workPhone + "\r\n" + "F: " + fax
+                + "\r\n\r\n" + email + "\r\n" + email2 + "\r\n" + email3 + "\r\n" + "Homepage:" + "\r\n" + homepage;
+            //return new ContactDate(firstName, lastName)
+            //{
+            //    //FullName = firstName + middlename + lastName,
+            //    Address = address,                 // во все свойства(property) объекта
+            //    HomePhone = homePhone,             // Контакт прописываем только что
+            //    MobilePhone = mobilePhone,         // взятые из страницы редактирования
+            //    WorkPhone = workPhone,             // данные
+            //    Fax = fax,
+
+            //    Email = email,
+            //    Email2 = email2,
+            //    Email3 = email3
+            //};
+        }
+        public string GetContactInformationFromProfile(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            OpenToProfileContact(index);
+            string AllInfosInProfile = driver.FindElement(By.Id("content")).Text;
+            return AllInfosInProfile;
+            //return new ContactDate(firstname, lastname)
+            //{
+            //    AllInfosInProfile = AllInfosInProfile
+            //};
+        }
+        public ContactHelper OpenToProfileContact(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                     .FindElements(By.TagName("td"))[6]
+                     .FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
     }
 }
