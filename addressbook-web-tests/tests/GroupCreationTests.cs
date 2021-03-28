@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using System.Collections.Generic; //в этом пространстве имён находится нужный класс - коллекция
 using NUnit.Framework;
+
 
 namespace AddressBookWebTests
 {
@@ -23,12 +28,35 @@ namespace AddressBookWebTests
             }
             return groups;
         }
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv"); //записываем данные из файла в массив строк
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(','); //разделяем данные по ячейкам массива, через символ ","
+                groups.Add(new GroupData(parts[0]) //добавляем объект Группа, с 0,1 и 2 элементов из массивов
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
+            return groups;
+        }
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List<GroupData>) //приведение в тип списка типа ГруппДата, так как Deserialize возвращать иной тип
+                new XmlSerializer(typeof(List<GroupData>)) //читаем данные типа лист оф группдата из файла groups.xml
+                    .Deserialize(new StreamReader(@"groups.xml"));
+        }
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groups.json"));
+        }
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTests(GroupData group)
         {
-            //GroupData group = new GroupData("aaa");
-            //group.Header = "fff";
-            //group.Footer = "ggg";
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
             app.Groups.Create(group);
 
@@ -58,6 +86,7 @@ namespace AddressBookWebTests
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
+            Thread.Sleep(3000);
             Assert.AreEqual(oldGroups, newGroups); //сравнение двух списков
             app.Auth.Logout();
         }
