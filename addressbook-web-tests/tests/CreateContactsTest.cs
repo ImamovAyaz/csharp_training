@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AddressBookWebTests
 {
@@ -60,8 +61,31 @@ namespace AddressBookWebTests
             return JsonConvert.DeserializeObject<List<ContactDate>>
                 (File.ReadAllText(@"contacts.json"));
         }
+        public static IEnumerable<ContactDate> ContactDataFromExcelFile()
+        {
+            List<ContactDate> contacts = new List<ContactDate>();
+            Excel.Application app = new Excel.Application(); //создаём приложение
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
+            Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
+            Excel.Range range = sheet.UsedRange; //область прямоугольника который содержит данные в файле Эксель (Например: 3 на 3)
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                contacts.Add(new ContactDate()
+                {
+                    Firstname = range.Cells[i, 1].Value,
+                    Middlename = range.Cells[i, 2].Value,
+                    Lastname = range.Cells[i, 3].Value,
+                    Address = range.Cells[i, 4].Value,
+                    Company = range.Cells[i, 5].Value
+                }) ;
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return contacts;
+        }
 
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        [Test, TestCaseSource("ContactDataFromExcelFile")]
         public void CreateContactTest(ContactDate contact)
         {
             //   ContactDate contact = new ContactDate("Ayaz1", "Imamov");

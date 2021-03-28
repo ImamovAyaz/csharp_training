@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic; //в этом пространстве имён находится нужный класс - коллекция
 using NUnit.Framework;
+using Excel = Microsoft.Office.Interop.Excel; //Библиотека для взаимодействия с Эксель
 
 
 namespace AddressBookWebTests
@@ -54,7 +55,29 @@ namespace AddressBookWebTests
             return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(@"groups.json"));
         }
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        public static IEnumerable<GroupData> GroupDataFromExcelFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            Excel.Application app = new Excel.Application(); //создаём приложение
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
+            Excel.Worksheet sheet = wb.ActiveSheet; //текущая страница
+            Excel.Range range = sheet.UsedRange; //область прямоугольника который содержит данные в файле Эксель (Например: 3 на 3)
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                groups.Add(new GroupData()
+                {
+                    Name = range.Cells[i, 1].Value,
+                    Header = range.Cells[i, 2].Value,
+                    Footer = range.Cells[i, 3].Value
+                }) ;
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTests(GroupData group)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой

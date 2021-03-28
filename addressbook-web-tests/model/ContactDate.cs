@@ -12,6 +12,8 @@ namespace AddressBookWebTests
         private string allPhones;
         private string allEmails;
         private string allInfosInProfile;
+        private string homepage;
+        private string fullName;
         public ContactDate()
         {
         }
@@ -59,9 +61,9 @@ namespace AddressBookWebTests
         {
             get
             {
-                if (FullName != null)
+                if (fullName != null)
                 {
-                    return FullName;
+                    return fullName;
                 }
                 else
                 {
@@ -70,7 +72,7 @@ namespace AddressBookWebTests
             }
             set
             {
-                FullName = value;
+                fullName = value;
             }
         }
         public string Nickname { get; set; }
@@ -87,95 +89,95 @@ namespace AddressBookWebTests
         {
             get
             {
-                if (Homepage != null)
+                if (homepage != null)
                 {
-                    return Homepage;
+                    return homepage;
                 }
                 else
                 {
-                    return "Homepage:" + Homepage;
+                    return "Homepage:" + homepage;
                 }
             }
             set
             {
-                Homepage = value;
+                homepage = value;
             }
         }
-        public string DayOfBirthday
-        {
-            get
-            {
-                if (DayOfBirthday != null)
-                {
-                    return DayOfBirthday;
-                }
-                else
-                {
-                    return DayOfBirthday + ". ";
-                }
-            }
-            set
-            {
-                DayOfBirthday = value;
-            }
-        }
-        public string MonthOfBirthday
-        {
-            get
-            {
-                if (MonthOfBirthday != null)
-                {
-                    return MonthOfBirthday;
-                }
-                else
-                {
-                    return MonthOfBirthday + " ";
-                }
-            }
-            set
-            {
-                MonthOfBirthday = value;
-            }
-        }
-        public string YearOfBirthday
-        {
-            get
-            {
-                int dateTime = DateTime.Now.Year;
-                if ((YearOfBirthday != null) || ((Convert.ToInt32(DayOfBirthday) == DateTime.Now.Day) &&
-                                                (Convert.ToInt32(MonthOfBirthday) == DateTime.Now.Day) &&
-                                                (Convert.ToInt32(YearOfBirthday) == DateTime.Now.Year)))
-                {
-                    return YearOfBirthday;
-                }
-                else
-                {               
-                    return YearOfBirthday + " (" + (dateTime - Convert.ToInt32(YearOfBirthday) + ")");
-                }
-            }
-            set
-            {
-                YearOfBirthday = value;
-            }
-        }
-        public string BirthDay
-        {
-            get
-            {
-                if (BirthDay != null)
-                {
-                    return BirthDay;
-                }
-                else
-                {
-                    return "Birthday " + DayOfBirthday + MonthOfBirthday + YearOfBirthday;
-                }
-            }
-            set
-            {
-                BirthDay = value;
-            }
-        } 
+        //public string DayOfBirthday
+        //{
+        //    get
+        //    {
+        //        if (DayOfBirthday != null)
+        //        {
+        //            return DayOfBirthday;
+        //        }
+        //        else
+        //        {
+        //            return DayOfBirthday + ". ";
+        //        }
+        //    }
+        //    set
+        //    {
+        //        DayOfBirthday = value;
+        //    }
+        //}
+        //public string MonthOfBirthday
+        //{
+        //    get
+        //    {
+        //        if (MonthOfBirthday != null)
+        //        {
+        //            return MonthOfBirthday;
+        //        }
+        //        else
+        //        {
+        //            return MonthOfBirthday + " ";
+        //        }
+        //    }
+        //    set
+        //    {
+        //        MonthOfBirthday = value;
+        //    }
+        //}
+        //public string YearOfBirthday
+        //{
+        //    get
+        //    {
+        //        int dateTime = DateTime.Now.Year;
+        //        if ((YearOfBirthday != null) || ((Convert.ToInt32(DayOfBirthday) == DateTime.Now.Day) &&
+        //                                        (Convert.ToInt32(MonthOfBirthday) == DateTime.Now.Day) &&
+        //                                        (Convert.ToInt32(YearOfBirthday) == DateTime.Now.Year)))
+        //        {
+        //            return YearOfBirthday;
+        //        }
+        //        else
+        //        {               
+        //            return YearOfBirthday + " (" + (dateTime - Convert.ToInt32(YearOfBirthday) + ")");
+        //        }
+        //    }
+        //    set
+        //    {
+        //        YearOfBirthday = value;
+        //    }
+        //}
+        //public string BirthDay
+        //{
+        //    get
+        //    {
+        //        if (BirthDay != null)
+        //        {
+        //            return BirthDay;
+        //        }
+        //        else
+        //        {
+        //            return "Birthday " + DayOfBirthday + MonthOfBirthday + YearOfBirthday;
+        //        }
+        //    }
+        //    set
+        //    {
+        //        BirthDay = value;
+        //    }
+        //} 
         public string Email { get; set; }
         public string Email2 { get; set; }
         public string Email3 { get; set; }
@@ -226,24 +228,24 @@ namespace AddressBookWebTests
                 allEmails = value;
             }
         }
-        public string AllInfosInProfile
-        {
-            get
-            {
-                if (allInfosInProfile != null)
-                {
-                    return allInfosInProfile;
-                }
-                else
-                {
-                    return CleanUp(AllInfosInProfile);
-                }
-            }
-            set
-            {
-                allInfosInProfile = value;
-            }
-        }
+        //public string AllInfosInProfile
+        //{
+        //    get
+        //    {
+        //        if (allInfosInProfile != null)
+        //        {
+        //            return CleanUp(allInfosInProfile);
+        //        }
+        //        else
+        //        {
+        //            return CleanUp(AllInfosInProfile);
+        //        }
+        //    }
+        //    set
+        //    {
+        //        allInfosInProfile = value;
+        //    }
+        //}
     }
 
 }
