@@ -199,15 +199,15 @@ namespace AddressBookWebTests
                 allPhones = value;
             }
         }
-        public string CleanUp(string phone)
+        public string CleanUp(string parameter)
         {
-            if (phone == null || phone == "")
+            if (parameter == null || parameter == "")
             {
                 return "";
             }
             else
             {
-                return Regex.Replace(phone, "[ -()]", " ") + "\r\n";
+                return Regex.Replace(parameter, "[ -()]", " ") + "\r\n";
             }
         }
         public string AllEmails
