@@ -283,18 +283,92 @@ namespace AddressBookWebTests
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 
-            string fullname = firstName + " " + middlename + " " + lastName;
-            //string[] info = { firstName, middlename, lastName, nickname, company, title, address, homePhone, mobilePhone, workPhone, fax, email, email2, email3 };
-            //for (int i = 0; i < info.Length; i++)
-            //{
-            //    if (info[i] == null)
-            //    {
-            //        info[i] = "";
-            //    } 
-            //}    
-            return fullname + "\r\n" + nickname + "\r\n" + title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" + "H: " + homePhone
-                + "\r\n" + "M: " + mobilePhone + "\r\n" + "W: " + workPhone + "\r\n" + "F: " + fax
-                + "\r\n\r\n" + email + "\r\n" + email2 + "\r\n" + email3 + "\r\n" + "Homepage:" + "\r\n" + homepage;
+            string fullname = "";
+            string extra = "";
+            string Allphone = "";
+            string AllMails = "";
+            string AllInfo = "";
+            string[] FIO = {firstName, middlename, lastName};
+            for (int i = 0; i < FIO.Length; i++)
+            {
+                if ((FIO[i] == null) || (FIO[i] == ""))
+                {
+                    FIO[i] = "";
+                }
+                else
+                {
+                    fullname = fullname + " " + FIO[i];
+                }
+            }
+            string[] Ex = { nickname, title, company, address };
+            for (int i = 0; i < Ex.Length; i++)
+            {
+                if ((Ex[i] == null) || (Ex[i] == ""))
+                {
+                    Ex[i] = "";
+                }
+                else
+                {
+                    extra = extra + "\r\n" + Ex[i];
+                }
+            }
+            string[] Phone = { homePhone, mobilePhone, workPhone, fax };
+            for (int i = 0; i < Phone.Length; i++)
+            {
+                if ((Phone[i] == null) || (Phone[i] == ""))
+                {
+                    Phone[i] = "";
+                }
+                else
+                {
+                    if (Phone[i] == homePhone)
+                    {
+                        Phone[i] = "H: " + Phone[i];
+                    }
+                    else if (Phone[i] == mobilePhone)
+                    {
+                        Phone[i] = "M: " + Phone[i];
+                    }
+                    else if (Phone[i] == workPhone)
+                    {
+                        Phone[i] = "W: " + Phone[i];
+                    }
+                    else if (Phone[i] == fax)
+                    {
+                        Phone[i] = "F: " + Phone[i];
+                    }
+                    Allphone = Allphone + "\r\n" + Phone[i];
+                }
+            }
+            string[] mails = { email, email2, email3, homepage};
+            for (int i = 0; i < mails.Length; i++)
+            {
+                if ((mails[i] == null) || (mails[i] == ""))
+                {
+                    mails[i] = "";
+                }
+                else
+                {
+                    if ((mails[i] == homepage) && ((homepage != null) || (homepage != "")))
+                    {
+                        mails[i] = "Homepage:\r\n" + mails[i]; 
+                    }
+                    AllMails = AllMails + "\r\n" + mails[i];
+                }
+            }
+            string[] result = { fullname + extra , Allphone , AllMails };
+            for (int i = 0; i < result.Length; i++)
+            {
+                if ((result[i] == null) || (result[i] == ""))
+                {
+                    result[i] = "";
+                }
+                else
+                {
+                    AllInfo = AllInfo + "\r\n" + result[i];
+                }
+            }
+            return (AllInfo).Trim();
             //return new ContactDate(firstName, lastName)
             //{
             //    //FullName = firstName + middlename + lastName,

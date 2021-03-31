@@ -16,7 +16,7 @@ namespace AddressBookWebTests
             string AllFieldsfromForm = app.Contacts.GetAllFieldsContactInformationFromEditForm(0);
             //ContactDate fromProfile = app.Contacts.GetContactInformationFromProfile(0);
             System.Console.Out.Write(app.Contacts.GetContactInformationFromProfile(0));
-            Assert.AreEqual(AllFieldsfromForm.ToString(), app.Contacts.GetContactInformationFromProfile(0));
+            Assert.AreEqual(app.Contacts.GetContactInformationFromProfile(0), AllFieldsfromForm);
         }
     }
 }
