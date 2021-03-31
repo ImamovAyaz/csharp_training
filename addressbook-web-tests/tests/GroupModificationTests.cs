@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace AddressBookWebTests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase // Тесты наследуются от базового тестового класса
+    public class GroupModificationTests : GroupTestBase // Тесты наследуются от базового тестового класса
     {
         [Test]
         public void GroupModificationTest()  // тестовый метод
@@ -21,16 +21,16 @@ namespace AddressBookWebTests
                 group.Footer = "222";
                 app.Groups.Create(group);
             }
-            GroupData newData = new GroupData("aaa123");
+            GroupData newData = new GroupData("aaa1231");
             newData.Header = null;
             newData.Footer = null;
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до добавления новой
             GroupData oldData = oldGroups[0];
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify(oldData, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();

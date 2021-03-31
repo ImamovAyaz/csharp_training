@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping; //Mapping - для привязки GroupData с БД
 
 namespace AddressBookWebTests
 {
+    [Table(Name = "addressbook")]
     public class ContactDate : IEquatable<ContactDate>, IComparable<ContactDate>
     {
         private string allPhones;
@@ -54,9 +56,13 @@ namespace AddressBookWebTests
             }
             return Firstname.CompareTo(other.Firstname);
         }
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
+        [Column(Name = "middlename")]
         public string Middlename { get; set; }
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
+
         public string FullName
         {
             get
@@ -75,15 +81,23 @@ namespace AddressBookWebTests
                 fullName = value;
             }
         }
+        [Column(Name = "nickname")]
         public string Nickname { get; set; }
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+        [Column(Name = "company")]
         public string Company { get; set; }
+        [Column(Name = "title")]
         public string Title { get; set; }
-
+        [Column(Name = "address")]
         public string Address { get; set; }
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
+        [Column(Name = "fax")]
         public string Fax { get; set; }
         public string Homepage
         {
@@ -178,8 +192,11 @@ namespace AddressBookWebTests
         //        BirthDay = value;
         //    }
         //} 
+        [Column(Name = "email")]
         public string Email { get; set; }
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
         public string AllPhones
         {
@@ -246,6 +263,14 @@ namespace AddressBookWebTests
         //        allInfosInProfile = value;
         //    }
         //}
+        public static List<ContactDate> GetAll()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                //использование языка LINQ
+                return (from g in db.Contacts select g).ToList(); //возвращает список групп из БД
+            }
+        }
     }
 
 }

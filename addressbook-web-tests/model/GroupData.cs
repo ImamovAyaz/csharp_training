@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping; //Mapping - для привязки GroupData с БД
 
 namespace AddressBookWebTests
 {
+    [Table(Name = "group_list")]
+
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         public GroupData()
@@ -46,12 +49,25 @@ namespace AddressBookWebTests
             }
             return Name.CompareTo(other.Name);
         }
+
+        [Column(Name = "group_name"), NotNull] //NotNull указываем потому что они в БД для таблицы Null стоят No, то есть данные столбцы не могут иметь пустое поле
+
         public string Name { get; set; }
-
+        [Column(Name = "group_header"), NotNull]
         public string Header { get; set; }
-
+        [Column(Name = "group_footer"), NotNull]
         public string Footer { get; set; }
 
+        [Column(Name = "group_id"), PrimaryKey, Identity] //Уникальный ключ таблицы
         public string Id { get; set; }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                //использование языка LINQ
+                return (from g in db.Groups select g).ToList(); //возвращает список групп из БД
+            }
+        }
     }
 }

@@ -9,12 +9,13 @@ using Newtonsoft.Json;
 using System.Collections.Generic; //в этом пространстве имён находится нужный класс - коллекция
 using NUnit.Framework;
 using Excel = Microsoft.Office.Interop.Excel; //Библиотека для взаимодействия с Эксель
+using System.Linq;
 
 
 namespace AddressBookWebTests
 {
     [TestFixture]
-    public class GroupCreationTestNew : AuthTestBase
+    public class GroupCreationTestNew : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -69,7 +70,7 @@ namespace AddressBookWebTests
                     Name = range.Cells[i, 1].Value,
                     Header = range.Cells[i, 2].Value,
                     Footer = range.Cells[i, 3].Value
-                }) ;
+                });
             }
             wb.Close();
             app.Visible = false;
@@ -80,12 +81,12 @@ namespace AddressBookWebTests
         [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTests(GroupData group)
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до добавления новой
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups.Add(group);
             oldGroups.Sort();
@@ -99,12 +100,12 @@ namespace AddressBookWebTests
             GroupData group = new GroupData("a'a");
             group.Header = "";
             group.Footer = "";
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до добавления новой
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             //Список объектов типа GroupData после добавления новой группы
             oldGroups.Add(group);
             oldGroups.Sort();
@@ -112,6 +113,20 @@ namespace AddressBookWebTests
             Thread.Sleep(3000);
             Assert.AreEqual(oldGroups, newGroups); //сравнение двух списков
             app.Auth.Logout();
+        }
+
+        [Test]
+        public void TestDBConnectivityForGroup()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList(); //читаем группы из интерфейса
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start)); //Из конца вычитаем то что в начале
+            start = DateTime.Now;
+
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }

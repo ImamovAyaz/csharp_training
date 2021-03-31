@@ -27,6 +27,13 @@ namespace AddressBookWebTests
 
             return this;
         }
+        public ContactHelper Remove(ContactDate group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(group.Id);
+            RemoveContact();
+            return this;
+        }
 
         private List<ContactDate> contactCash = null;
         public List<ContactDate> GetContactsList()
@@ -81,6 +88,15 @@ namespace AddressBookWebTests
             manager.Navigator.GoToHomePage();
             return this;
         }
+        public ContactHelper Modify(ContactDate oldData, ContactDate newData)
+        {
+            manager.Navigator.GoToHomePage();
+            EditThisContact(oldData.Id);
+            FillContactForm(newData);
+            UpdateContact();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
         public ContactHelper AddNewContact(ContactDate contact)
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -100,6 +116,11 @@ namespace AddressBookWebTests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
         public ContactHelper EditThisContact(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
@@ -108,7 +129,15 @@ namespace AddressBookWebTests
             //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
-
+        public ContactHelper EditThisContact(string id)
+        {
+            //driver.FindElements(By.Name("entry"))[0]
+            //    .FindElements(By.TagName("td"))[7]
+            //    .FindElement(By.TagName("a")).Click();
+            driver.FindElement(By.XPath("(//a[@href='edit.php?id=" + id + "'])")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
         public ContactHelper FillContactForm(ContactDate contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
@@ -118,6 +147,13 @@ namespace AddressBookWebTests
         public ContactHelper UpdateContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[" + (index + 1) + "]")).Click();
+            contactCash = null;
+            return this;
+
+        }
+        public ContactHelper UpdateContact()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
             contactCash = null;
             return this;
         }

@@ -11,7 +11,7 @@ namespace AddressBookWebTests
     public class TestBase
     {
         protected ApplicationManager app;
-
+        public static bool PERFORM_LONG_UI_CHECKS = true; // Включаем/отключаем длительную проверку списка БД 
         [SetUp]
         public void SetupApplicationManager()
         {

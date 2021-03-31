@@ -8,7 +8,7 @@ using System.Collections.Generic; //в этом пространстве имё�
 namespace AddressBookWebTests
 {
     [TestFixture]
-    public class GroupRemovealTests : AuthTestBase
+    public class GroupRemovealTests : GroupTestBase
     {
 
         [Test]
@@ -21,14 +21,15 @@ namespace AddressBookWebTests
                 group.Footer = "222";
                 app.Groups.Create(group);
             }
-            List<GroupData> oldGroups = app.Groups.GetGroupList(); //список групп до добавления новой
-            app.Groups.Remove(0);
+            List<GroupData> oldGroups = GroupData.GetAll(); //список групп до добавления новой
+            GroupData toBeRemoved = oldGroups[0];
+            app.Groups.Remove(toBeRemoved);
 
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             //Список объектов типа GroupData после добавления новой группы
-            GroupData toBeRemoved = oldGroups[0];
+         
             oldGroups.RemoveAt(0);
             Assert.AreEqual(oldGroups, newGroups);
 
