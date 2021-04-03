@@ -18,6 +18,7 @@ namespace AddressBookWebTests
         {
             Name = name;
         }
+        
         public bool Equals(GroupData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -60,7 +61,8 @@ namespace AddressBookWebTests
 
         [Column(Name = "group_id"), PrimaryKey, Identity] //Уникальный ключ таблицы
         public string Id { get; set; }
-
+        [Column(Name = "Deprecated")]
+        public string Deprecated { get; set; }
         public static List<GroupData> GetAll()
         {
             using (AddressbookDB db = new AddressbookDB())
@@ -69,5 +71,24 @@ namespace AddressBookWebTests
                 return (from g in db.Groups select g).ToList(); //возвращает список групп из БД
             }
         }
+        public List<ContactDate> GetContacts() //получаем список контактов, который входит в конкретную группу
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                //использование языка LINQ
+                return (from c in db.Contacts
+                        from GCR in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id 
+                        && c.Deprecated == "0000-00-00 00:00:00")
+                        select c).Distinct().ToList(); //возвращает список групп из БД
+            }
+        }
+        //public static List<GroupContactRelation> GetGroupsToRelations()
+        //{
+        //    using (AddressbookDB db = new AddressbookDB())
+        //    {
+        //        //использование языка LINQ
+        //        return (from g in db.GCR select g).ToList();
+        //    }
+        //}
     }
 }

@@ -117,6 +117,9 @@ namespace AddressBookWebTests
                 homepage = value;
             }
         }
+
+        [Column(Name = "Deprecated")]
+        public string Deprecated { get; set; }
         //public string DayOfBirthday
         //{
         //    get
@@ -268,9 +271,22 @@ namespace AddressBookWebTests
             using (AddressbookDB db = new AddressbookDB())
             {
                 //использование языка LINQ
-                return (from g in db.Contacts select g).ToList(); //возвращает список групп из БД
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList(); //возвращает список групп из БД
+                // выше в блоке Where показано лямбда выражение, внутри которого x - параметр, а далее - тело функции, которое возвращает величину bool
             }
         }
+        public List<GroupData> GetGroups() //получаем список контактов, который входит в конкретную группу
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                //использование языка LINQ
+                return (from g in db.Groups
+                        from GCR in db.GCR.Where(p => p.GroupId == Id && p.ContactId == g.Id
+                        && g.Deprecated == "0000-00-00 00:00:00")
+                        select g).Distinct().ToList(); //возвращает список групп из БД
+            }
+        }
+
     }
 
 }

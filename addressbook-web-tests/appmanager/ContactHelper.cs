@@ -27,6 +27,52 @@ namespace AddressBookWebTests
 
             return this;
         }
+
+        public void AddContactToGroup(ContactDate contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter(); //очищаем фильтр группы на странице контактов
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Id);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void RemoveContactToGroup(ContactDate contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroup(group.Id);
+            SelectContact(contact.Id);
+            RemoveContactToGroup();
+        }
+
+        public void RemoveContactToGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void SelectGroup(string id)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByValue(id);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click(); //нажимаем кнопку "добавить" для добавления контакта в группу
+        }
+
+        public void SelectGroupToAdd(string groupId)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByValue(groupId);
+            //new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public  void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]"); //Выбираем значение all в выпадающем списке фильтра групп
+        }
+
         public ContactHelper Remove(ContactDate group)
         {
             manager.Navigator.GoToHomePage();

@@ -118,15 +118,22 @@ namespace AddressBookWebTests
         [Test]
         public void TestDBConnectivityForGroup()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUi = app.Groups.GetGroupList(); //читаем группы из интерфейса
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start)); //Из конца вычитаем то что в начале
-            start = DateTime.Now;
+            //foreach (ContactDate group in ContactDate.GetGroups())
+            //{
+            //    Console.WriteLine(group.Deprecated);
+            //}
 
-            List<GroupData> fromDb = GroupData.GetAll();
-            end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            //__________________________________________________________________________
+            //DateTime start = DateTime.Now;
+            //List<GroupData> fromUi = app.Groups.GetGroupList(); //читаем группы из интерфейса
+            //DateTime end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start)); //Из конца вычитаем то что в начале
+            //start = DateTime.Now;
+
+            //List<GroupData> fromDb = GroupData.GetAll();
+            //end = DateTime.Now;
+            //System.Console.Out.WriteLine(end.Subtract(start));
+            //__________________________________________________________________________
         }
     }
 }
