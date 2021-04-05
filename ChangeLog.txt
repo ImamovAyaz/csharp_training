@@ -1,0 +1,105 @@
+Free Address Book 1.10.3
+-Bug: Fix import csv bug
+
+Free Address Book 1.10.2
+-Bug: Fix some bugs
+
+Free Address Book 1.10.1
+-Bug: Fixed "save new contact" bug
+
+Free Address Book 1.10.0
+-Bug: Fix some bugs
+
+Free Address Book 1.9.0
+-Bug: Fix some bugs
+
+Free Address Book 1.8.0
+-New: Common local menu on input fields
+-New: Added "On birthday" as new birthday remind option
+-Bug: Set correct font size at startup
+
+Free Address Book 1.7.0
+-New: Birthday reminder
+
+Free Address Book 1.6.2
+-Bug: Fix some bugs
+
+Free Address Book 1.6.1
+-Bug: Fix some configuration file problem
+
+Free Address Book 1.6.0
+-New: Password protection 
+-New: Use joint setting file. On next update the program will not lose its settings
+-Bug: Fixed program crash, when wanted to add 'zip' and 'state' to the print list
+
+Free Address Book 1.5.1
+-Bug: Fixed custom panel error
+
+Free Address Book 1.5.0
+-New: Increase font size on main window
+
+Free Address Book 1.4.7
+-Bug: Fixed program crashing when user added picture to the contact
+
+Free Address Book 1.4.6.0
+-New: Multisorting 
+-New: Saving the order of columns
+-New: Refresh database (if the database file is shared between more computer).
+-Bug: Fixed "Hiba a konfiguracios fajl olvasasa kozben!" error
+-Bug: Fixed data reloading from shared database
+
+Free Address Book 1.4.5.0
+-Bug: Fixed printing errors
+-Bug: Fixed program crashed, after importing with filter
+
+Free Address Book 1.4.4.0
+-New: System tray icon
+-New: Selected group on startup
+-New: Redesigned GUI for options
+-Bug: Fixed database overwriting in portable versions
+
+Free Address Book 1.4.3.0
+-New: Creating groups
+
+Free Address Book 1.4.2.0
+-Bug: Fixed "General details" panel error
+-Bug: Fixed error in Import function
+
+Free Address Book 1.4.1.0
+-Bug: Fixed error mdb and csv files name extensions
+-New: Save the sorted column, and the sorted order
+
+Free Address Book 1.4.0.0
+-Bug: Fixed error in CSV import
+-Bug: Fixed error in checked update function
+-New: Customizable print settings
+-New: "Check for update at startup" option
+
+Free Address Book 1.3.1.0
+-Bug: Fixed error of list columns size set
+-New: Database backup
+-New: Database restore
+-New: Import from older version of Free Address Book
+-New: CSV import
+-New: CSV export
+-New: Custom fields
+-New: Check for update
+-New: FAQ button
+-New: Visible or unvisible contacts details
+-New: Create new contact from another one
+-New: Begin to add new contact in editor, without closing the current
+-Modified: Changed general fields (three new field: MiddleName, State, Zip)
+
+Free Address Book 1.2
+-Bug: Fixed error, when UAC was enabled (Windows Vista, Windows 7)
+-New: Added donate button
+-New: Added news bar
+-Modified: Smalled setup size
+-Modified: Redesigned contact list
+-Modified: Changed company and product url
+
+Free Address Book 1.1
+-Bug: Fixed save method, when overwrite another contact
+
+Free Address Book 1.0
+-First public version
