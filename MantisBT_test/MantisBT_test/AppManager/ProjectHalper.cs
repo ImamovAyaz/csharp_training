@@ -37,9 +37,9 @@ namespace MantisBT_test
             manager.Menu.OpenProjectPage();
             if (!IsProjectExist())
             {
-                ProjectData project = new ProjectData()
+                Mantis.ProjectData project = new Mantis.ProjectData()
                 {
-                    Name = "ddd"
+                    name = "ddd"
                 };
                 Creation(project);
             }
@@ -64,7 +64,7 @@ namespace MantisBT_test
             driver.FindElement(By.CssSelector("td:nth-of-type(" + (toBeRemoved + 1) + ") > a")).Click();
         }
 
-        public void Creation(ProjectData project)
+        public void Creation(Mantis.ProjectData project)
         {
             manager.Menu.OpenProjectPage();
             InitProjectModification();
@@ -79,11 +79,11 @@ namespace MantisBT_test
             projectCache = null;
         }
 
-        private void FillProjectModification(ProjectData project)
+        private void FillProjectModification(Mantis.ProjectData project)
         {
             driver.FindElement(By.Id("project-name")).Click();
             driver.FindElement(By.Id("project-name")).Clear();
-            driver.FindElement(By.Id("project-name")).SendKeys(project.Name);
+            driver.FindElement(By.Id("project-name")).SendKeys(project.name);
         }
         private void InitProjectModification()
         {

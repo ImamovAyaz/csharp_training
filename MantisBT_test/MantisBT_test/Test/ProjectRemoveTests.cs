@@ -14,10 +14,22 @@ namespace MantisBT_test
         public void TestRemoveProject()
         {
             app.Project.ProjectElementVerification();
-
-            List<ProjectData> oldProjects = app.Project.GetAllFromUI();
+            AccountData account = new AccountData()
+            {
+                Username = "administrator",
+                Password = "qwerty123"
+            };
+            ProjectData project = new ProjectData()
+            {
+                Name = "testProjectFromAPI"
+            };
+            // List<ProjectData> oldProjects = app.Project.GetAllFromUI();
+            List<Mantis.ProjectData> oldProjects = app.API.GetAllProject(account);
             int toBeRemoved = 0;
-
+            if (oldProjects.Count == 0)
+            {
+                app.API.Create(project, account);
+            }
             app.Project.Remove(toBeRemoved);
 
             Assert.AreEqual(oldProjects.Count - 1, app.Project.GetProjectCount());

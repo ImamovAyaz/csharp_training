@@ -15,10 +15,6 @@ namespace MantisBT_test
     {
         protected IWebDriver driver;
         protected string baseURL;
-        protected ManagementMenuHelper managementMenuHelper;
-        protected LoginHelper loginHelper;
-        protected ProjectHelper projectHelper;
-
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -26,7 +22,12 @@ namespace MantisBT_test
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/mantisbt-2.25.0";
+            Menu = new ManagementMenuHelper(this);
+            Auth = new LoginHelper(this);
+            Project = new ProjectHelper(this);
+            API = new APIHelper(this);
         }
+
         ~ApplicationManager()
         {
             try
@@ -102,26 +103,10 @@ namespace MantisBT_test
         }
 
         protected bool acceptNextAlert = true;
-        public LoginHelper Auth
-        {
-            get
-            {
-                return loginHelper;
-            }
-        }
-        public ManagementMenuHelper Menu
-        {
-            get
-            {
-                return managementMenuHelper;
-            }
-        }
-        public ProjectHelper Project
-        {
-            get
-            {
-                return projectHelper;
-            }
-        }
+
+        public ManagementMenuHelper Menu { get; set; }
+        public LoginHelper Auth { get; set; }
+        public APIHelper API { get; set; }
+        public ProjectHelper Project { get; set; }
     }
 }
